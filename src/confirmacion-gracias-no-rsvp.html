@@ -14,18 +14,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 		<script>
 		  $.urlParam = function(name){
-		      var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-		      if (results==null){
-		         return null;
-		      }
-		      else{
-		         return decodeURI(results[1]) || 0;
-		      }
+	      var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+	      if (results==null){
+	         return null;
+	      }
+	      else{
+	         return decodeURI(results[1]) || 0;
+	      }
 		  }
-			$.post('https://hooks.zapier.com/hooks/catch/1265671/ink079',
+			$.post('https://hooks.zapier.com/hooks/catch/1265671/i7xu7l',
       {
         jobPlacementId:$.urlParam('jobPlacementId'),
-        rsvpAnswer: 'yes'
+        rsvpFeedback:$.urlParam('rsvpFeedback'),
+        rsvpComment:$.urlParam('rsvpComment')
       },function(return_data){
 			  console.log(return_data.status);
 			});
@@ -50,8 +51,8 @@
 				<div class="row">
 					<div class="col-lg-2"></div>
 					<div class="col-lg-8 col-xs-12 text-center">
-						<h1 class="pt-70">Gracias por responder</h1>
-						<p>Pronto nos estaremos comunicando contigo para brindarte alternativas de horarios para tu entrevista. Espera nuestro correo.</p>
+						<h1 class="pt-70">Gracias por participar</h1>
+						<p>Agradecemos tu ayuda en mejorar nuestro servicio. Recibir feedback de tu parte es siempre muy valioso.</p>
 					</div>
 				</div>
 			</div>
