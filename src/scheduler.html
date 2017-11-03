@@ -44,8 +44,6 @@
       var jobFamily = getParameterByName('jobFamily');
       var jobPlacementId = getParameterByName('jobPlacementId');
       var candidateName = getParameterByName('candidateName');
-      console.log(jobName);
-      console.log(candidateName);
       if (jobFamily) {
         $("#jobFamily").text(jobFamily);
       }
@@ -53,7 +51,7 @@
         $("#jobPlacementId").text(jobPlacementId);
       }
       if (candidateName) {
-        $("#candidate").text(candidateName);
+        $("#candidateName").text(candidateName);
       }
     });
 
