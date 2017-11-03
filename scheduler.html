@@ -41,12 +41,16 @@
     };
 
     $(document).ready(function() {
-      var jobName = getParameterByName('jobname');
-      var candidateName = getParameterByName('candidate');
+      var jobFamily = getParameterByName('jobFamily');
+      var jobPlacementId = getParameterByName('jobPlacementId');
+      var candidateName = getParameterByName('candidateName');
       console.log(jobName);
       console.log(candidateName);
-      if (jobName) {
-        $("#jobName").text(jobName);
+      if (jobFamily) {
+        $("#jobFamily").text(jobFamily);
+      }
+      if (jobPlacementId) {
+        $("#jobPlacementId").text(jobPlacementId);
       }
       if (candidateName) {
         $("#candidate").text(candidateName);
@@ -56,7 +60,7 @@
     $(document).ready(function() {
       $("#scheduleForm").on('submit', function(e) {
         e.preventDefault();
-        var uuid = getParameterByName('uuid');
+        var uuid = getParameterByName('jobPlacementId');
         var post_data = $("#scheduleForm").serializeArray();
         post_data.push({name: 'jobPlacementId', value: uuid});
         var url = "https://hooks.zapier.com/hooks/catch/1265671/inlt6t/";
@@ -79,8 +83,9 @@
         </a>
         </div>
       </div>
-      <h3 style="font-weight:100"> Posición: <span id="jobName"></span></h3>
-      <h3 style="font-weight:100"> Candidata: <span id="candidate"></span></h3>
+      <h3 style="font-weight:100"> Posición: <span id="jobPlacementId"></span></h3>
+      <h3 style="font-weight:100"> Rol: <span id="jobFamily"></span></h3>
+      <h3 style="font-weight:100"> Candidata: <span id="candidateName"></span></h3>
       <h4 style="font-weight:100; padding-top:20px;">Selecciona hasta 3 posibles horarios de entrevista</h4>
 
       <form id="scheduleForm">
