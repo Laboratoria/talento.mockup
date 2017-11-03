@@ -1,86 +1,91 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Laboratoria | Gracias NO RSVP</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="shortcut icon" href="favicon.png" type="image/ico" />
-    <link rel="stylesheet" type="text/css" href="main.css" />
-    <script src="//use.typekit.net/owh6gyt.js"></script>
-    <script>try{Typekit.load();}catch(e){}</script>
-    <!--Incluyendo Jquery-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-		<script>
-		  $(document).ready(function() {
-			  $.urlParam = function(name){
-		      var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-		      if (results==null){
-		         return null;
-		      }
-		      else{
-		         return decodeURI(results[1]) || 0;
-		      }
-			  }
-			  $("#jobPlacementId").val($.urlParam('jobPlacementId'));
-			  $("#rsvpAnswer").val($.urlParam('rsvpAnswer'));
-			  $("#rsvpDateTime").val($.urlParam('rsvpDateTime'));
-		  });
-		</script>
-  </head>
-  <body>
-		<header class="topbar bg-white">
-		  <div class="container">
-		    <div class="row flex-center">
-		      <div class="left col-lg-4 col-xs-3"></div>
-		      <div class="center col-lg-4 col-xs-6 text-center">
-		        <a href="/" class="logo">
-		          <img alt="Laboratoria, código que transforma" src="logo.svg">
-		        </a>
-		      </div>
-		      <div class="right col-lg-4 col-xs-3"></div>
-		    </div>
-		  </div>
-		</header>
-		<section class="pt-45 pb-70">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-2"></div>
-					<div class="col-lg-8 col-xs-12 text-center">
-						<h1 class="pt-70">OH! lo sentimos</h1>
-						<p>Te agradecemos por responder. Con el fin de mejorar nuestro servicio te pedimos respondas las siguientes preguntas.</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-3"></div>
-					<div class="col-lg-6 col-xs-12">
-						<form action="https://hooks.zapier.com/hooks/catch/1265671/ink079" method="post" >
-							<input type="hidden" id="jobPlacementId" name="jobPlacementId">
-							<input type="hidden" id="rsvpAnswer" name="rsvpAnswer">
-							<input type="hidden" id="rsvpDateTime" name="rsvpDateTime">
-						  <div>
-							  <label>¿CUÁL ES LA RAZÓN DE TU RESPUESTA?</label>
-						    <select name="rsvpFeedback">
-						      <option>Selecciona una opción</option>
-						      <option>No tengo disponibilidad en ese horario</option>
-						      <option>Prefiero no participar en este proceso</option>
-						      <option>Ya tengo una oferta laboral que voy a tomar</option>
-						    </select>
-						  </div>
-						  <div>
-						    <label>¿PORQUÉ? (OPCIONAL)</label>
-						    <textarea name="rsvpComment" wrap="hard" rows="5">
-						    </textarea>
-						  </div>
-						  <div>
-						    <button type="submit" class="primary">Enviar</button>
-						  </div>
-						</form>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Laboratoria | Gracias NO RSVP</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="shortcut icon" href="favicon.png" type="image/ico" />
+  <link rel="stylesheet" type="text/css" href="main.css" />
+  <script src="//use.typekit.net/owh6gyt.js"></script>
+  <script>try{Typekit.load();}catch(e){}</script>
+  <!--Incluyendo Jquery-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    $.urlParam = function(name){
+      var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+      if (results==null){
+        return null;
+      }
+      else{
+        return decodeURI(results[1]) || 0;
+      }
+    }
 
-					</div>
-				</div>
-			</div>
-		</section>
-  </body>
+    $.post('https://hooks.zapier.com/hooks/catch/1265671/ink079',
+      {
+        jobPlacementId:$.urlParam('jobPlacementId'),
+        rsvpAnswer: 'no'
+      },function(return_data) {
+      console.log(return_data.status);
+    });
+
+    $("#jobPlacementId").val($.urlParam('jobPlacementId'));
+  });
+  </script>
+</head>
+<body>
+  <header class="topbar bg-white">
+    <div class="container">
+      <div class="row flex-center">
+        <div class="left col-lg-4 col-xs-3"></div>
+        <div class="center col-lg-4 col-xs-6 text-center">
+          <a href="/" class="logo">
+            <img alt="Laboratoria, código que transforma" src="logo.svg">
+          </a>
+        </div>
+        <div class="right col-lg-4 col-xs-3"></div>
+      </div>
+    </div>
+  </header>
+  <section class="pt-45 pb-70">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8 col-xs-12 text-center">
+          <h1 class="pt-70">OH! lo sentimos</h1>
+          <p>Te agradecemos por responder. Con el fin de mejorar nuestro servicio te pedimos respondas las siguientes preguntas.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6 col-xs-12">
+          <form action="gracias-confirmacion-no-rsvp.html" method="get" >
+            <input type="hidden" id="jobPlacementId" name="jobPlacementId">
+            <input type="hidden" id="rsvpAnswer" name="rsvpAnswer" value="no">
+            <div>
+              <label>¿CUÁL ES LA RAZÓN DE TU RESPUESTA?</label>
+              <select name="rsvpFeedback">
+                <option>Selecciona una opción</option>
+                <option>No tengo disponibilidad en ese horario</option>
+                <option>Prefiero no participar en este proceso</option>
+                <option>Ya tengo una oferta laboral que voy a tomar</option>
+              </select>
+            </div>
+            <div>
+              <label>¿PORQUÉ? (OPCIONAL)</label>
+              <textarea name="rsvpComment" wrap="hard" rows="5"></textarea>
+            </div>
+            <div>
+              <button type="submit" class="primary">Enviar</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
 </html>
