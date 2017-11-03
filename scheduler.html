@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laboratoria - Selección de horarios</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+  <script>
+    $(function() {
+      $(".datepicker").datepicker();
+    });
+
+    $(document).ready(function() {
+      $('.timepicker').timepicker({
+        timeFormat: 'h:mm p',
+        interval: 15,
+        minTime: '30',
+        maxTime: '6:00pm',
+        defaultTime: '10',
+        startTime: '10:00',
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true
+      });
+    });
+
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    };
+
+    $(document).ready(function() {
+      var jobName = getParameterByName('jobname');
+      var candidateName = getParameterByName('candidate');
+      console.log(jobName);
+      console.log(candidateName);
+      if (jobName) {
+        $("#jobName").text(jobName);
+      }
+      if (candidateName) {
+        $("#candidate").text(candidateName);
+      }
+    });
+
+    $(document).ready(function() {
+      $("#scheduleForm").on('submit', function(e) {
+        e.preventDefault();
+        var uuid = getParameterByName('uuid');
+        var post_data = $("#scheduleForm").serializeArray();
+        post_data.push({name: 'jobPlacementId', value: uuid});
+        var url = "https://hooks.zapier.com/hooks/catch/1265671/inlt6t/";
+        $.post(url, post_data);
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <p style="padding-top:50px;">
+      <div class="header-center col-md-4 hidden-xs ">
+        <div class=" hidden-xs hidden-sm">
+          <a href="http://laboratoria.la/">
+
+      		<img src="http://laboratoria.la/app/assets/img/logo_laboratoria-09.svg" alt="Laboratoria" class="logo-cuadrado " style="height:65px; ">
+        </a>
+        </div>
+      </div>
+      <h3 style="font-weight:100"> Posición: <span id="jobName"></span></h3>
+      <h3 style="font-weight:100"> Candidata: <span id="candidate"></span></h3>
+      <h4 style="font-weight:100; padding-top:20px;">Selecciona hasta 3 posibles horarios de entrevista</h4>
+
+      <form id="scheduleForm">
+        <div class="form-group">
+          <label for="inputName">Persona de Contacto</label>
+          <input type="text" class="form-control" name="interviewContactName" id="inputName" placeholder="">
+        </div>
+        <div class="form-group">
+          <label for="inputAddress">Dirección</label>
+          <input type="text" class="form-control" name="interviewLocation" id="inputAddress" placeholder="Av. ...">
+        </div>
+        <div class="form-group">
+          <label for="inputPhone">Teléfono</label>
+          <input type="text" class="form-control" name="interviewPhone" id="inputPhone" placeholder="01 ...">
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="inputFormat">Formato</label>
+            <select class="form-control" name="interviewType" id="inputFormat">
+          <option value="InPerson">En Persona</option>
+          <option value="Phone">Teléfono</option>
+        </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="inputDuration">Tiempo antes de entrevista</label>
+            <select class="form-control" name="interviewPreArrivalTime" id="interviewPreArrivalTime">
+          <option value="10">10 minutos</option>
+          <option value="15">15 minutos</option>
+          <option value="20">20 minutos</option>
+          <option value="30">30 minutos</option>
+        </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputInstructions">Instrucciones</label>
+          <textarea class="form-control" name="interviewInstructions" id="inputInstructions" rows="3"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="inputDate1">Fecha</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+              <input type="text" id="inputDate1" name="interviewDate1" class="form-control datepicker">
+              <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="inlineFormInputName2">Hora</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+              <input type="text" class="form-control timepicker" name="interviewTime1" placeholder="Hora">
+              <div class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+            </div>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="inputDuration">Duración</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="interviewDuration1">
+              <option value="30">30 minutos</option>
+              <option value="45">45 minutos</option>
+              <option value="60">1 hora</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="inlineFormInputGroupUsername2">Fecha</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+              <input type="text" class="form-control datepicker" name="interviewDate2">
+              <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="inlineFormInputName2">Hora</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+              <input type="text" class="form-control timepicker" placeholder="Hora" name="interviewTime2">
+              <div class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+            </div>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="inputZip">Duración</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="interviewDuration2">
+              <option value="30">30 minutos</option>
+              <option value="45">45 minutos</option>
+              <option value="60">1 hora</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="inlineFormInputGroupUsername2">Fecha</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+              <input type="text" class="form-control datepicker" name="interviewDate3">
+              <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="inlineFormInputName2">Hora</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+              <input type="text" class="form-control timepicker" placeholder="Hora" name="interviewTime3">
+              <div class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+            </div>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="inputZip">Duración</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="interviewDuration3">
+              <option value="30">30 minutos</option>
+              <option value="45">45 minutos</option>
+              <option value="60">1 hora</option>
+            </select>
+          </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Enviar">
+      </form>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+</body>
+
+</html>
