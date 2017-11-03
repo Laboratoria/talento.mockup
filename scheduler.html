@@ -60,7 +60,9 @@
         var post_data = $("#scheduleForm").serializeArray();
         post_data.push({name: 'jobPlacementId', value: uuid});
         var url = "https://hooks.zapier.com/hooks/catch/1265671/inlt6t/";
-        $.post(url, post_data);
+        $.post(url, post_data, function() {
+            window.location.replace("/thanks_schedule.html");
+        });
       });
     });
   </script>
